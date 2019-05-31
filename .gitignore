@@ -104,6 +104,8 @@ venv.bak/
 .mypy_cache/
 
 .idea/
-data/
+data/release
+data/word-embeds
+data/prep
 tensorboard/
 foo_train.sh

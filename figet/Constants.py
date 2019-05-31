@@ -22,8 +22,6 @@ RIGHT_CTX = "right_context_token"
 LEFT_CTX = "left_context_token"
 TYPE = "y_str"
 
-EPS = 1e-5
-
 COARSE_FLAG = 0
 FINE_FLAG = 1
 UF_FLAG = 2

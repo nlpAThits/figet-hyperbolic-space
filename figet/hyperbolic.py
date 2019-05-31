@@ -1,13 +1,12 @@
-from figet import utils
-from figet.Constants import EPS
 import torch
 from torch.autograd import Function
 from numpy import clip
 from numpy.linalg import norm
 import math
 
-
-log = utils.get_logging()
+EPS = 1e-5
+MAX_GRAD = 10000.0
+MIN_GRAD = -10000.0
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 
@@ -64,10 +63,7 @@ class PoincareDistance(Function):
         grad_u = g.expand_as(gu) * gu
         grad_v = g.expand_as(gv) * gv
 
-        corrected_u = PoincareDistance.apply_riemannian_correction(squnorm, grad_u)
-        corrected_v = PoincareDistance.apply_riemannian_correction(sqvnorm, grad_v)
-
-        return corrected_u, corrected_v
+        return grad_u.clamp(min=MIN_GRAD, max=MAX_GRAD), grad_v.clamp(min=MIN_GRAD, max=MAX_GRAD)
 
     @staticmethod
     def grad(x, v, sqnormx, sqnormv, sqdist):
@@ -79,37 +75,3 @@ class PoincareDistance(Function):
         z = torch.sqrt(torch.pow(z, 2) - 1)
         z = torch.clamp(z * beta, min=EPS).unsqueeze(-1)
         return 4 * a / z.expand_as(x)
-
-    @staticmethod
-    def apply_riemannian_correction(sqxnorm, gradient):
-        # corrected_gradient = gradient * ((1 - sqxnorm.unsqueeze(-1)) ** 2 / 4).expand_as(gradient)
-        return gradient.clamp(min=-10000.0, max=10000.0)
-
-
-def polarization_identity(u, v):
-    """
-    :param u, v: (n x embed_dim) Tensors with hyperbolic embeddings
-    :return: Tensor of shape (n x 1) with results of applying the function
-
-    Formula taken from: https://en.wikipedia.org/wiki/Polarization_identity#Other_forms_for_real_vector_spaces
-
-    This function is the equivalent of the dot product expressed using the norm in the given geometry (normed space).
-    This function is applicable only in geometries where the Parallelogram law holds.
-    """
-    squnorm = hyperbolic_norm(u) ** 2
-    sqvnorm = hyperbolic_norm(v) ** 2
-    u_minus_v = hyperbolic_norm(u - v) ** 2
-    return (squnorm + sqvnorm - u_minus_v) * 0.5
-
-
-def hyperbolic_norm(u):
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    origin = torch.zeros(u.size()).to(device)
-    return PoincareDistance.apply(origin, u)
-
-
-def normalize(predicted_emb):
-    """
-    Projects the embedding with a norm above 1 (one) inside the Poincare ball
-    """
-    return torch.renorm(predicted_emb, 2, 0, 1 - EPS)

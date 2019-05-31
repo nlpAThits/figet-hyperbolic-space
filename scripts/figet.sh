@@ -6,12 +6,12 @@ set -o errexit
 DATA=data
 
 # Dataset
-dataset_dir=${DATA}/ultrafined
+dataset_dir=${DATA}/release
 
 # Embeddings
-# embeddings=${embeddings_dir}/glove.840B.300d.txt
-embeddings=${DATA}/word-embeds/miniglove.txt
-type_embeddings=${DATA}/type-embeds/uft.wn.minfreq100.dim10.bs50.1499.pt
+embeddings=${DATA}/word-embeds/glove.840B.300d.txt
+# embeddings=${DATA}/word-embeds/miniglove.txt
+type_embeddings=${DATA}/type-embeds/freq-cooc-sym-10dim.bin
 
 # Checkpoints and prep
 prep=${DATA}/prep
@@ -24,7 +24,27 @@ this_prep=${prep}/${prep_run}
 mkdir -p tensorboard
 mkdir -p models
 
-if [ "${do_what}" == "preprocess" ];
+
+if [ "${do_what}" == "get_data" ];
+then
+    printf "\nDownloading corpus...`date`\n"
+    if [ -d "${dataset_dir}" ]; then
+        echo "Seems that you already have the dataset!"
+    else
+        wget http://nlp.cs.washington.edu/entity_type/data/ultrafine_acl18.tar.gz -O ${DATA}/ultrafined.tar.gz
+        (cd ${DATA} && tar -zxvf ultrafined.tar.gz && rm ultrafined.tar.gz)
+    fi
+
+    printf "\nDownloading word embeddings...`date`\n"
+    if [ -d "${DATA}/word-embeds" ]; then
+        echo "Seems that you already have the embeddings!"
+    else
+        mkdir -p ${DATA}/word-embeds
+        wget http://nlp.stanford.edu/data/glove.840B.300d.zip -O ${DATA}/word-embeds/embeddings.zip
+        (cd ${DATA}/word-embeds && unzip embeddings.zip && rm embeddings.zip)
+    fi
+
+elif [ "${do_what}" == "preprocess" ];
 then
     mkdir -p ${this_prep}
     python -u ./preprocess.py \
