@@ -14,7 +14,7 @@ import itertools
 def config_parser(parser):
     # Data options
     parser.add_argument("--data", required=True, type=str, help="Data path.")
-    parser.add_argument("--save_model", default="./save/model.pt", type=str, help="Save the model.")
+    parser.add_argument("--export_path", default="", type=str, help="Name of model to export")
 
     # Mention and context encoder parameters
     parser.add_argument("--emb_size", default=300, type=int, help="Embedding size.")
@@ -43,7 +43,6 @@ def config_parser(parser):
                         help="""If the norm of the gradient vector exceeds this, renormalize it to max_grad_norm""")
     parser.add_argument("--gpus", default=[], nargs="+", type=int, help="Use CUDA on the listed devices.")
     parser.add_argument("--metric", default="hyperbolic", type=str, help="Metric of the space to use")
-    parser.add_argument("--export_path", default="", type=str, help="Name of model to export")
 
 
 parser = argparse.ArgumentParser("train.py")
@@ -62,7 +61,6 @@ log.debug(args)
 
 def get_dataset(data, args, key):
     dataset = data[key]
-    log.info("Setting batch size")
     dataset.set_batch_size(args.batch_size)
     return dataset
 

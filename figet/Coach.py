@@ -68,7 +68,6 @@ class Coach(object):
         log.info(f"Final evaluation on best coarse macro F1 ({max_coarse_macro_f1}) from epoch {best_epoch}")
         self.model.load_state_dict(best_model_state)
 
-        self.instance_printer.show(self.dev_data)
         self.print_results(self.dev_data, "dev")
         self.print_results(self.test_data, "test")
         self.writer.close()
