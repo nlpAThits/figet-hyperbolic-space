@@ -10,7 +10,6 @@ dataset_dir=${DATA}/release
 
 # Embeddings
 embeddings=${DATA}/word-embeds/glove.840B.300d.txt
-# embeddings=${DATA}/word-embeds/miniglove.txt
 type_embeddings=${DATA}/type-embeds/freq-cooc-sym-10dim.bin
 
 # Checkpoints and prep
@@ -58,18 +57,14 @@ then
     python -u ./train.py \
         --data=${this_prep} \
         --epochs=50 \
-        --gpus=0 \
-        --export_path=freq-sym
-# TODO
+        --export_path=${prep_run} \
+        --gpus=0 
+
 elif [ "${do_what}" == "inference" ];
 then
-    ckpt=${ckpt}/${current_run}
     python -u ./infer.py \
-        --data=${dataset_dir}/foo_dev.jsonl \
-        --save_model=${ckpt}/${corpus_name}.model.pt \
-        --save_idx2threshold=${ckpt}/${corpus_name}.thres \
-        --pred=${ckpt}/${corpus_name}.pred.txt \
-        --single_context=0 \
-        --context_num_layers=2 --bias=0 --context_length=10
+        --data=${this_prep} \
+        --export_path=${prep_run} \
+        --gpus=0
 fi
 
