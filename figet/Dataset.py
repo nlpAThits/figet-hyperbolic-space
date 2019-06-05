@@ -130,7 +130,7 @@ class Dataset(object):
         return self.to_cuda(batch_data)
 
     def to_cuda(self, batch_data):
-        if torch.cuda.is_available():           # Ver si puedo poner todos los tensores en CUDA al ppio y ya
+        if torch.cuda.is_available():
             batch_data = batch_data.cuda()
         return Variable(batch_data)
 
