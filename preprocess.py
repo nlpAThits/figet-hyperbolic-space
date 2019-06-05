@@ -172,15 +172,15 @@ if __name__ == "__main__":
     parser.add_argument("--emb_size", default=300, type=int, help="Embedding size.")
 
     # Mention
-    parser.add_argument("--mention_length", default=10, type=int,
+    parser.add_argument("--mention_length", default=5, type=int,
                         help="Max amount of words taken for mention representation")
     parser.add_argument("--mention_char_length", default=25, type=int,
                         help="Max amount of chars taken for mention representation")
 
     # Context
-    parser.add_argument("--full_context_length", default=50, type=int,
+    parser.add_argument("--full_context_length", default=25, type=int,
                         help="Max amount of words of the left + mention + right context.")
-    parser.add_argument("--side_context_length", default=25, type=int,
+    parser.add_argument("--side_context_length", default=10, type=int,
                         help="Max length of the context on each side (left or right)")
 
     # Ops

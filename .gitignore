@@ -108,4 +108,5 @@ data/release
 data/word-embeds
 data/prep
 tensorboard/
+models/
 foo_train.sh

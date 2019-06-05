@@ -57,8 +57,9 @@ elif [ "${do_what}" == "train" ];
 then
     python -u ./train.py \
         --data=${this_prep} \
-        --epochs=5
-        # --gpus=0
+        --epochs=50 \
+        --gpus=0 \
+        --export_path=freq-sym
 # TODO
 elif [ "${do_what}" == "inference" ];
 then
