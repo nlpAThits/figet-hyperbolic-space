@@ -58,13 +58,13 @@ then
         --data=${this_prep} \
         --epochs=50 \
         --export_path=${prep_run} \
-        --gpus=0 \
+        --gpus=0 
 
 elif [ "${do_what}" == "inference" ];
 then
     python -u ./infer.py \
         --data=${this_prep} \
         --export_path=${prep_run} \
-        --gpus=0 \
+        --gpus=0
 fi
 

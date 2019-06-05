@@ -8,7 +8,6 @@ import torch
 from torch.optim import Adam
 
 import figet
-import itertools
 
 
 def config_parser(parser):
@@ -28,7 +27,7 @@ def config_parser(parser):
     # projection parameters
     parser.add_argument('--hidden_size', type=int, default=500)
     parser.add_argument('--hidden_layers', type=int, default=1)
-    parser.add_argument("--bias", default=0, type=int, help="Whether to use bias in the linear transformation.")
+    parser.add_argument("--bias", default=1, type=int, help="Whether to use bias in the linear transformation.")
     parser.add_argument("--projection_dropout", default=0.3, type=float, help="Dropout rate for projection")
     parser.add_argument("--metric_dist_factor", default=1.0, type=float, help="Factor for the metric distance")
     parser.add_argument("--cosine_dist_factor", default=50.0, type=float, help="Factor for the cosine distance")
@@ -39,7 +38,7 @@ def config_parser(parser):
     parser.add_argument("--batch_size", default=1024, type=int, help="Batch size.")
 
     parser.add_argument("--epochs", default=50, type=int, help="Number of training epochs.")
-    parser.add_argument("--max_grad_norm", default=10, type=float,
+    parser.add_argument("--max_grad_norm", default=1.0, type=float,
                         help="""If the norm of the gradient vector exceeds this, renormalize it to max_grad_norm""")
     parser.add_argument("--gpus", default=[], nargs="+", type=int, help="Use CUDA on the listed devices.")
     parser.add_argument("--metric", default="hyperbolic", type=str, help="Metric of the space to use")
