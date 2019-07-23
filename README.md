@@ -8,7 +8,7 @@ Model overview:
 The source code and data in this repository aims at facilitating the study of fine-grained entity typing. If you use the code/data, please cite it as follows:
 ```
 @article{lopez2019hyperfiget,
-  author    = {Federico L\'opez and
+  author    = {Federico L{\'{o}}pez and
                Benjamin Heinzerling and
                Michael Strube},
   title     = {Fine-Grained Entity Typing in Hyperbolic Space},
@@ -17,7 +17,10 @@ The source code and data in this repository aims at facilitating the study of fi
   year      = {2019},
   url       = {http://arxiv.org/abs/1906.02505},
   archivePrefix = {arXiv},
-  eprint    = {1906.02505}
+  eprint    = {1906.02505},
+  timestamp = {Thu, 13 Jun 2019 13:36:00 +0200},
+  biburl    = {https://dblp.org/rec/bib/journals/corr/abs-1906-02505},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 ```
 
