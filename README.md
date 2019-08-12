@@ -1,5 +1,5 @@
 # Fine-Grained Entity Typing in Hyperbolic Space
-Code for the paper ["Fine-Grained Entity Typing in Hyperbolic Space"](https://arxiv.org/abs/1906.02505) accepted at RepL4NLP @ ACL 2019
+Code for the paper ["Fine-Grained Entity Typing in Hyperbolic Space"](https://www.aclweb.org/anthology/W19-4319) published at RepL4NLP @ ACL 2019
 
 Model overview:
 <p align="center"><img width="85%" src="img/model.png" /></p>
@@ -7,17 +7,18 @@ Model overview:
 ## Citation
 The source code and data in this repository aims at facilitating the study of fine-grained entity typing. If you use the code/data, please cite it as follows:
 ```
-@article{lopez2019hyperfiget,
-  author    = {Federico L\'opez and
-               Benjamin Heinzerling and
-               Michael Strube},
-  title     = {Fine-Grained Entity Typing in Hyperbolic Space},
-  journal   = {CoRR},
-  volume    = {abs/1906.02505},
-  year      = {2019},
-  url       = {http://arxiv.org/abs/1906.02505},
-  archivePrefix = {arXiv},
-  eprint    = {1906.02505}
+@inproceedings{lopez-etal-2019-fine,
+    title = "Fine-Grained Entity Typing in Hyperbolic Space",
+    author = "L{\'o}pez, Federico  and
+      Heinzerling, Benjamin  and
+      Strube, Michael",
+    booktitle = "Proceedings of the 4th Workshop on Representation Learning for NLP (RepL4NLP-2019)",
+    month = aug,
+    year = "2019",
+    address = "Florence, Italy",
+    publisher = "Association for Computational Linguistics",
+    url = "https://www.aclweb.org/anthology/W19-4319",
+    pages = "169--180",
 }
 ```
 
